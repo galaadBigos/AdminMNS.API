@@ -19,14 +19,14 @@ namespace AdminMNS.API.Controllers
 
 		[HttpGet]
 		[Route("")]
-		public IEnumerable<UserItemDTO> GetUsers()
+		public IEnumerable<UserItemDTO>? GetUsers()
 		{
 			return _userService.GetUserItemDTOs();
 		}
 
 		[HttpGet]
 		[Route("id={id}")]
-		public UserItemDTO GetUser(int id)
+		public UserItemDTO? GetUser(int id)
 		{
 			return _userService.GetUserItemDTO(id);
 		}

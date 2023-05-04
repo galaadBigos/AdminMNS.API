@@ -4,8 +4,8 @@ namespace AdminMNS.API.Abstractions
 {
 	public interface IUserService
 	{
-		public UserItemDTO GetUserItemDTO(int id);
-		public IEnumerable<UserItemDTO> GetUserItemDTOs();
+		public IEnumerable<UserItemDTO>? GetUserItemDTOs();
+		public UserItemDTO? GetUserItemDTO(int id);
 
 	}
 }

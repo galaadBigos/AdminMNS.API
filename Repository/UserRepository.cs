@@ -1,6 +1,5 @@
-﻿using AdminMNS.API.Domain.DTO;
+﻿using AdminMNS.API.App_Code.Helpers;
 using AdminMNS.API.Models;
-using AdminMNS.API.Repository.Abstractions;
 using System.Data;
 
 namespace AdminMNS.API.Repository
@@ -28,30 +27,14 @@ namespace AdminMNS.API.Repository
 
             while (reader.Read())
             {
-                User user = new User()
-                {
-                    Id = reader.GetInt32(0),
-                    Firstname = reader.GetString(1),
-                    Lastname = reader.GetString(2),
-                    Birthday = reader.GetDateTime(3),
-                    Password = reader.GetString(4),
-                    MailAddress = reader.GetString(5),
-                    WayNumber = reader.GetString(6),
-                    WayType = reader.GetString(7),
-                    WayName = reader.GetString(8),
-                    City = reader.GetString(9),
-                    PostalCode = reader.GetString(10),
-                    IsValidRegistration = reader.GetBoolean(11),
-                    IdUserStatus = reader.GetInt32(12),
-                    IdGraduatingClass = reader.GetInt32(13),
-                };
+                User user = UserHelper.GenerateUser(reader);
                 result.Add(user);
             }
             _dbConnection.Close();
             return result;
         }
 
-        public User GetUserById(int id)
+        public User? GetUserById(int id)
         {
             User? result = null;
 
@@ -65,23 +48,7 @@ namespace AdminMNS.API.Repository
 
             while (reader.Read())
             {
-                result = new User()
-                {
-                    Id = reader.GetInt32(0),
-                    Firstname = reader.GetString(1),
-                    Lastname = reader.GetString(2),
-                    Birthday = reader.GetDateTime(3),
-                    Password = reader.GetString(4),
-                    MailAddress = reader.GetString(5),
-                    WayNumber = reader.GetString(6),
-                    WayType = reader.GetString(7),
-                    WayName = reader.GetString(8),
-                    City = reader.GetString(9),
-                    PostalCode = reader.GetString(10),
-                    IsValidRegistration = reader.GetBoolean(11),
-                    IdUserStatus = reader.GetInt32(12),
-                    IdGraduatingClass = reader.GetInt32(13),
-                };
+                result = UserHelper.GenerateUser(reader);
             }
             _dbConnection.Close();
             return result;
