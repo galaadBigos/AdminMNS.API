@@ -4,6 +4,7 @@ using AdminMNS.API.Domain.Services;
 using AdminMNS.API.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
 
 namespace AdminMNS.API.Controllers
 {
@@ -12,6 +13,7 @@ namespace AdminMNS.API.Controllers
 	public class UserController : Controller
 	{
 		private readonly IUserService _userService;
+
 		public UserController(IUserService userService)
 		{
 			_userService = userService;
@@ -25,10 +27,24 @@ namespace AdminMNS.API.Controllers
 		}
 
 		[HttpGet]
-		[Route("id={id}")]
+		[Route("id-user={id}")]
 		public UserItemDTO? GetUser(int id)
 		{
 			return _userService.GetUserItemDTO(id);
+		}
+
+		[HttpGet]
+		[Route("id-graduating-class={id}")]
+		public List<UserItemDTO>? GetUsersByGraduatingClass(int id)
+		{
+			return _userService.GetUserItemDTOsByGraduatingClass(id);
+		}
+
+		[HttpPost]
+		[Route("create")]
+		public void PostUser(UserItemDTO userItemDTO)
+		{
+			_userService.PostNewUser(userItemDTO);
 		}
 
 		//// GET: UserController

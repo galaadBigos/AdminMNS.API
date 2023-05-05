@@ -1,6 +1,7 @@
 
 using AdminMNS.API.Abstractions;
 using AdminMNS.API.Domain.Services;
+using AdminMNS.API.Repository;
 using Microsoft.Data.SqlClient;
 using System.Data;
 
@@ -20,6 +21,8 @@ namespace AdminMNS.API
 			builder.Services.AddSwaggerGen();
 			builder.Services.AddTransient<IDbConnection>(db => new SqlConnection(builder.Configuration.GetConnectionString("Default")));
 			builder.Services.AddTransient<IUserService, UserService>();
+			builder.Services.AddTransient<IUserRepository, UserRepository>();
+
 			var app = builder.Build();
 
 			// Configure the HTTP request pipeline.

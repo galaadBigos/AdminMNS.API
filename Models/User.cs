@@ -1,7 +1,12 @@
-﻿namespace AdminMNS.API.Models
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
+
+namespace AdminMNS.API.Models
 {
 	public class User
 	{
+		[Key]
 		public int Id { get; set; }
 		public string? Firstname { get; set; }
 		public string? Lastname { get; set; }

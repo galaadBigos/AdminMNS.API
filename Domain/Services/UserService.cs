@@ -1,4 +1,5 @@
 ﻿using AdminMNS.API.Abstractions;
+using AdminMNS.API.App_Code.Helpers;
 using AdminMNS.API.Domain.DTO;
 using AdminMNS.API.Models;
 using AdminMNS.API.Repository;
@@ -9,13 +10,11 @@ namespace AdminMNS.API.Domain.Services
 {
     public class UserService : IUserService
 	{
-		private readonly IDbConnection _dbConnection;
-		private readonly UserRepository _userRepository;
+		private readonly IUserRepository _userRepository;
 
-		public UserService(IDbConnection dbConnection)
+		public UserService(IUserRepository userRepository)
 		{
-			_dbConnection = dbConnection;
-			_userRepository = new UserRepository(_dbConnection);
+			_userRepository = userRepository;
 		}
 
 		public IEnumerable<UserItemDTO> GetUserItemDTOs()
@@ -31,6 +30,20 @@ namespace AdminMNS.API.Domain.Services
 			if (user != null)
 				return new UserItemDTO(user);
 			return null;
+		}
+
+		public List<UserItemDTO> GetUserItemDTOsByGraduatingClass(int id)
+		{
+			IEnumerable<User>? users = _userRepository.GetUsersByGraduatingClass(id);
+
+			return users.Select(user => new UserItemDTO(user)).ToList();
+		}
+
+		public void PostNewUser(UserItemDTO userItemDTO)
+		{
+			User user = UserHelper.GenerateUserFromCreatePost(userItemDTO);
+
+			_userRepository.PostUser(user);
 		}
 	}
 }

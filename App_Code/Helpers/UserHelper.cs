@@ -1,11 +1,14 @@
-﻿using AdminMNS.API.Models;
+﻿using AdminMNS.API.Domain.DTO;
+using AdminMNS.API.Models;
 using System.Data;
+using System.Reflection.PortableExecutable;
+using System.Text;
 
 namespace AdminMNS.API.App_Code.Helpers
 {
 	public class UserHelper
 	{
-		public static User GenerateUser(IDataReader reader)
+		public static User GenerateUserFromDataBase(IDataReader reader)
 		{
 			return new User()
 			{
@@ -24,6 +27,40 @@ namespace AdminMNS.API.App_Code.Helpers
 				IdUserStatus = reader.GetInt32(12),
 				IdGraduatingClass = reader.GetInt32(13),
 			};
+		}
+
+		public static User GenerateUserFromCreatePost(UserItemDTO userItemDTO)
+		{
+			return new User()
+			{
+				Id = userItemDTO.Id,
+				Firstname = userItemDTO.Firstname,
+				Lastname = userItemDTO.Lastname,
+				Birthday = userItemDTO.Birthday,
+				Password = GetRandomPassword(12),
+				MailAddress = userItemDTO.MailAddress,
+				WayNumber = userItemDTO.WayNumber,
+				WayType = userItemDTO.WayType,
+				WayName = userItemDTO.WayName,
+				City = userItemDTO.City,
+				PostalCode = userItemDTO.PostalCode,
+				IsValidRegistration = userItemDTO.IsValidRegistration,
+				IdUserStatus = userItemDTO.IdUserStatus,
+				IdGraduatingClass = userItemDTO.IdGraduatingClass,
+			};
+		}
+
+		private static string GetRandomPassword(int length)
+		{
+			StringBuilder result = new StringBuilder();
+
+			const string valid = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
+			Random random = new Random();
+			while (0 < length--)
+			{
+				result.Append(valid[random.Next(valid.Length)]);
+			}
+			return result.ToString();
 		}
 	}
 }

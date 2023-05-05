@@ -6,6 +6,7 @@ namespace AdminMNS.API.Abstractions
 	{
 		public IEnumerable<UserItemDTO>? GetUserItemDTOs();
 		public UserItemDTO? GetUserItemDTO(int id);
-
+		public List<UserItemDTO>? GetUserItemDTOsByGraduatingClass(int id);
+		public void PostNewUser(UserItemDTO userItemDTO);
 	}
 }

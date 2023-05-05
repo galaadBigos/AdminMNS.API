@@ -1,4 +1,5 @@
 ﻿using AdminMNS.API.Models;
+using System.Text.Json.Serialization;
 
 namespace AdminMNS.API.Domain.DTO
 {
@@ -18,7 +19,13 @@ namespace AdminMNS.API.Domain.DTO
 		public int IdUserStatus { get; set; }
 		public int IdGraduatingClass { get; set; }
 
-		public UserItemDTO(User user)
+		[JsonConstructor]
+        public UserItemDTO()
+        {
+            
+        }
+
+        public UserItemDTO(User user)
 		{
 			if (user != null)
 			{
