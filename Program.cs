@@ -22,6 +22,8 @@ namespace AdminMNS.API
 			builder.Services.AddTransient<IDbConnection>(db => new SqlConnection(builder.Configuration.GetConnectionString("Default")));
 			builder.Services.AddTransient<IUserService, UserService>();
 			builder.Services.AddTransient<IUserRepository, UserRepository>();
+			builder.Services.AddTransient<IGraduatingClassService, GraduatingClassService>();
+			builder.Services.AddTransient<IGraduatingClassRepository, GraduatingClassRepository>();
 
 			var app = builder.Build();
 

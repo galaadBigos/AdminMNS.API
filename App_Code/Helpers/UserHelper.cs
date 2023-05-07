@@ -1,6 +1,7 @@
 ﻿using AdminMNS.API.Domain.DTO;
 using AdminMNS.API.Models;
 using System.Data;
+using System.Reflection;
 using System.Reflection.PortableExecutable;
 using System.Text;
 

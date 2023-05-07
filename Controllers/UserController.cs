@@ -27,7 +27,7 @@ namespace AdminMNS.API.Controllers
 		}
 
 		[HttpGet]
-		[Route("id-user={id}")]
+		[Route("id={id}")]
 		public UserItemDTO? GetUser(int id)
 		{
 			return _userService.GetUserItemDTO(id);

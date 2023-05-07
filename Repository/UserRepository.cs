@@ -1,6 +1,7 @@
 ﻿using AdminMNS.API.Abstractions;
 using AdminMNS.API.App_Code.Helpers;
 using AdminMNS.API.Models;
+using Microsoft.Data.SqlClient;
 using System.Data;
 
 namespace AdminMNS.API.Repository
@@ -78,48 +79,16 @@ namespace AdminMNS.API.Repository
 
 		public void PostUser(User user)
 		{
-            string query = $"INSERT INTO [User] VALUES " +
-                $"@Firstname," +
-                $"@Lastname," +
-                $"@Birthday," +
-                $"@Password," +
-                $"@MailAddress," +
-                $"@WayNumber," +
-                $"@WayType," +
-                $"@WayName," +
-                $"@City," +
-                $"@PostalCode," +
-                $"@IsValidRegistration," +
-                $"@IdUserStatus," +
-                $"@IdGraduatingClass" +
-                $");";
+            string query = PostHelper.GenerateSecurePostQuery(user);
 
-
-
-			//$"(" +
-			//$"'{user.Firstname}'," +
-			//$"'{user.Lastname}'," +
-			//$"'{user.Birthday}'," +
-			//$"'{user.Password}'," +
-			//$"'{user.MailAddress}'," +
-			//$"'{user.WayNumber}'," +
-			//$"'{user.WayType}'," +
-			//$"'{user.WayName}'," +
-			//$"'{user.City}'," +
-			//$"'{user.PostalCode}'," +
-			//$"'{user.IsValidRegistration}'," +
-			//$"{user.IdUserStatus}," +
-			//$"{user.IdGraduatingClass}" +
-			//$")";
-
-			_dbConnection.Open();
+            _dbConnection.Open();
 			IDbCommand command = _dbConnection.CreateCommand();
+ 
 			command.CommandText = query;
 
-            IDbDataParameter dbDataParameter = command.CreateParameter();
-            dbDataParameter.
+            PostHelper.AddParametersToDbCommand(command, user);
 
-            command.ExecuteNonQuery();
+			command.ExecuteNonQuery();
 
 			_dbConnection.Close();
 		}

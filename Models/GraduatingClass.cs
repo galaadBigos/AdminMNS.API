@@ -1,7 +1,10 @@
-﻿namespace AdminMNS.API.Models
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace AdminMNS.API.Models
 {
-	public class GraduatingClass
+	public class GraduatingClass : AbstractTable
 	{
+        [Key]
         public int Id { get; set; }
         public string Name { get; set; }
         public DateTime StartDate { get; set; }

@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 
 namespace AdminMNS.API.Models
 {
-	public class User
+	public class User : AbstractTable
 	{
 		[Key]
 		public int Id { get; set; }
