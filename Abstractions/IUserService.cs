@@ -8,5 +8,6 @@ namespace AdminMNS.API.Abstractions
 		public UserItemDTO? GetUserItemDTO(int id);
 		public List<UserItemDTO>? GetUserItemDTOsByGraduatingClass(int id);
 		public void PostNewUser(UserItemDTO userItemDTO);
+		public void DeleteUser(int id);
 	}
 }

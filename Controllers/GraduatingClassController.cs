@@ -1,8 +1,11 @@
 ﻿using AdminMNS.API.Abstractions;
+using AdminMNS.API.App_Code.Exceptions;
 using AdminMNS.API.Domain.DTO;
 using AdminMNS.API.Domain.Services;
 using AdminMNS.API.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Data.SqlClient;
+using System.Net;
 
 namespace AdminMNS.API.Controllers
 {
@@ -19,16 +22,90 @@ namespace AdminMNS.API.Controllers
 
 		[HttpGet]
 		[Route("")]
-		public IEnumerable<GraduatingClass>? GetGraduatingClasses()
+		public IActionResult GetGraduatingClasses()
 		{
-			return _graduatingClassService.GetGraduatingClasses();
+			try
+			{
+				IEnumerable<GraduatingClass>? result = _graduatingClassService.GetGraduatingClasses();
+				return result != null ? Ok(result) : NoContent();
+			}
+			catch (SqlException ex)
+			{
+				return BadRequest(ErrorMessageHelper.DisplayErrorMessage(ex.Message, ex.Number));
+			}
 		}
 
 		[HttpGet]
 		[Route("id={id}")]
-		public GraduatingClass? GetGraduatingClassById(int id)
+		public IActionResult GetGraduatingClassById(int id)
 		{
-			return _graduatingClassService.GetGraduatingClassById(id);
+			try
+			{
+				GraduatingClass? result = _graduatingClassService.GetGraduatingClassById(id);
+				return result != null ? Ok(result) : NoContent();
+			}
+			catch (SqlException ex)
+			{
+				return BadRequest(ErrorMessageHelper.DisplayErrorMessage(ex.Message, ex.Number));
+			}
+		}
+
+		[HttpPost]
+		[Route("create")]
+		public IActionResult PostGraduatingClass(GraduatingClassItemDTO graduatingClass)
+		{
+			try
+			{
+				_graduatingClassService.PostNewGraduatingClass(graduatingClass);
+				return Ok();
+			}
+			catch (SqlException ex)
+			{
+				return BadRequest(ErrorMessageHelper.DisplayErrorMessage(ex.Message, ex.Number));
+			}
+			catch (InsertSqlException ex)
+			{
+				return  BadRequest(ErrorMessageHelper.DisplayErrorMessage(ex.Message));
+			}
+		}
+
+		[HttpPut]
+		[Route("update")]
+		public IActionResult UpdateGraduatingClass(GraduatingClassItemDTO graduatingClass)
+		{
+			try
+			{
+				_graduatingClassService.UpdateGraduatingClass(graduatingClass);
+				return Ok();
+			}
+			catch (SqlException ex)
+			{
+				return BadRequest(ErrorMessageHelper.DisplayErrorMessage(ex.Message, ex.Number));
+			}
+			catch (InsertSqlException ex)
+			{
+				return BadRequest(ErrorMessageHelper.DisplayErrorMessage(ex.Message));
+			}
+		}
+
+		[HttpDelete]
+		[Route("delete")]
+		public IActionResult DeleteGraduatingClass(int id)
+		{
+			try
+			{
+				_graduatingClassService.DeleteGraduatingClassById(id);
+
+				return Ok();
+			}
+			catch (SqlException ex)
+			{
+				return BadRequest(ErrorMessageHelper.DisplayErrorMessage(ex.Message, ex.Number));
+			}
+			catch (InsertSqlException ex)
+			{
+				return BadRequest(ErrorMessageHelper.DisplayErrorMessage(ex.Message));
+			}
 		}
 	}
 }

@@ -1,18 +1,17 @@
 ﻿using AdminMNS.API.Abstractions;
 using AdminMNS.API.App_Code.Helpers;
+using AdminMNS.API.Domain.DTO;
 using AdminMNS.API.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Data.SqlClient;
 using System.Data;
 
 namespace AdminMNS.API.Repository
 {
-    public class UserRepository : IUserRepository
+    public class UserRepository : AbstractRepository, IUserRepository
 	{
-        private readonly IDbConnection _dbConnection;
-
-        public UserRepository(IDbConnection dbConnection)
+        public UserRepository(IDbConnection dbConnection) : base(dbConnection)
         {
-            _dbConnection = dbConnection;
         }
 
         public IEnumerable<User> GetUsers()
@@ -38,7 +37,7 @@ namespace AdminMNS.API.Repository
 
         public User? GetUserById(int id)
         {
-            User? result = null;
+			User? result = null;
 
             string query = $"SELECT * FROM [User] WHERE Id_user = {id}";
 
@@ -79,14 +78,28 @@ namespace AdminMNS.API.Repository
 
 		public void PostUser(User user)
 		{
-            string query = PostHelper.GenerateSecurePostQuery(user);
+            string query = PostHelper.GenerateSecurePostQuery(user, "[User]");
 
             _dbConnection.Open();
 			IDbCommand command = _dbConnection.CreateCommand();
  
 			command.CommandText = query;
 
-            PostHelper.AddParametersToDbCommand(command, user);
+			CRUDHelper.AddParametersToDbCommand(command, user);
+
+			command.ExecuteNonQuery();
+
+			_dbConnection.Close();
+		}
+
+		public void DeleteUser(int id)
+		{
+            string query = $"DELETE FROM [User] WHERE Id_user = {id}";
+
+			_dbConnection.Open();
+			IDbCommand command = _dbConnection.CreateCommand();
+
+			command.CommandText = query;
 
 			command.ExecuteNonQuery();
 

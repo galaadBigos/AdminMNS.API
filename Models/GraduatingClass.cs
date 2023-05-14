@@ -2,7 +2,7 @@
 
 namespace AdminMNS.API.Models
 {
-	public class GraduatingClass : AbstractTable
+	public class GraduatingClass : DatabaseTable
 	{
         [Key]
         public int Id { get; set; }

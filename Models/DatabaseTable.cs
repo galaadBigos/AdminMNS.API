@@ -1,6 +1,6 @@
 ﻿namespace AdminMNS.API.Models
 {
-	public abstract class AbstractTable
+	public abstract class DatabaseTable
 	{
 	}
 }

@@ -1,4 +1,5 @@
-﻿using AdminMNS.API.Models;
+﻿using AdminMNS.API.Domain.DTO;
+using AdminMNS.API.Models;
 
 namespace AdminMNS.API.Abstractions
 {
@@ -6,5 +7,8 @@ namespace AdminMNS.API.Abstractions
 	{
 		IEnumerable<GraduatingClass>? GetGraduatingClasses();
 		GraduatingClass? GetGraduatingClassById(int id);
+		public void PostNewGraduatingClass(GraduatingClassItemDTO graduatingClass);
+		void DeleteGraduatingClassById(int id);
+		void UpdateGraduatingClass(GraduatingClassItemDTO graduatingClass);
 	}
 }

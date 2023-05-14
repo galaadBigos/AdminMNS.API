@@ -30,7 +30,7 @@ namespace AdminMNS.API.App_Code.Helpers
 			};
 		}
 
-		public static User GenerateUserFromCreatePost(UserItemDTO userItemDTO)
+		public static User GenerateUserFromItemDTO(UserItemDTO userItemDTO)
 		{
 			return new User()
 			{

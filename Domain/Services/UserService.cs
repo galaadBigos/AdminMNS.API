@@ -41,9 +41,14 @@ namespace AdminMNS.API.Domain.Services
 
 		public void PostNewUser(UserItemDTO userItemDTO)
 		{
-			User user = UserHelper.GenerateUserFromCreatePost(userItemDTO);
+			User user = UserHelper.GenerateUserFromItemDTO(userItemDTO);
 
 			_userRepository.PostUser(user);
+		}
+
+		public void DeleteUser(int id)
+		{
+			_userRepository.DeleteUser(id);
 		}
 	}
 }

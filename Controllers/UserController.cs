@@ -47,6 +47,28 @@ namespace AdminMNS.API.Controllers
 			_userService.PostNewUser(userItemDTO);
 		}
 
+		//[HttpPut]
+		//[Route("update")]
+		//public IActionResult UpdateUser()
+		//{
+		//	try
+		//	{
+
+		//	}
+		//	catch (Exception)
+		//	{
+
+		//		throw;
+		//	}
+		//}
+
+		[HttpDelete]
+		[Route("delete")]
+		public void DeleteUser(int id)
+		{
+			_userService.DeleteUser(id);
+		}
+
 		//// GET: UserController
 		//public ActionResult Index()
 		//{

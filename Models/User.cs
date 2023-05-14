@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 
 namespace AdminMNS.API.Models
 {
-	public class User : AbstractTable
+	public class User : DatabaseTable
 	{
 		[Key]
 		public int Id { get; set; }
@@ -20,6 +20,6 @@ namespace AdminMNS.API.Models
 		public string? PostalCode { get; set; }
 		public bool IsValidRegistration { get; set; }
 		public int IdUserStatus { get; set; }
-		public int IdGraduatingClass { get; set; }
+        public int IdGraduatingClass { get; set; }
 	}
 }
