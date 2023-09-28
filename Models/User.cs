@@ -1,20 +1,25 @@
-﻿namespace AdminMNS.API.Models
+﻿using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Text.Json.Serialization;
+
+namespace AdminMNS.API.Models
 {
-	public class User
+	public class User : DatabaseTable
 	{
+		[Key]
 		public int Id { get; set; }
-		public string Firstname { get; set; }
-		public string Lastname { get; set; }
+		public string? Firstname { get; set; }
+		public string? Lastname { get; set; }
 		public DateTime Birthday { get; set; }
-		public string Password { get; set; }
-		public string MailAddress { get; set; }
-		public string WayNumber { get; set; }
-		public string WayType { get; set; }
-		public string WayName { get; set; }
-		public string City { get; set; }
-		public string PostalCode { get; set; }
+		public string? Password { get; set; }
+		public string? MailAddress { get; set; }
+		public string? WayNumber { get; set; }
+		public string? WayType { get; set; }
+		public string? WayName { get; set; }
+		public string? City { get; set; }
+		public string? PostalCode { get; set; }
 		public bool IsValidRegistration { get; set; }
 		public int IdUserStatus { get; set; }
-		public int IdGraduatingClass { get; set; }
+        public int IdGraduatingClass { get; set; }
 	}
 }

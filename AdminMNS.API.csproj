@@ -8,13 +8,12 @@
 
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="7.0.5" />
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="5.1.1" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.4.0" />
   </ItemGroup>
 
   <ItemGroup>
     <Folder Include="Domain\Cmd\" />
-    <Folder Include="Domain\DTO\" />
-    <Folder Include="Domain\Services\" />
   </ItemGroup>
 
 </Project>
